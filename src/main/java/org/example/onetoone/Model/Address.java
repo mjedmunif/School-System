@@ -1,5 +1,4 @@
 package org.example.onetoone.Model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,6 +24,7 @@ public class Address {
     private String street;
 
     private String BuildingNumber;
+
 
     @OneToOne
     @MapsId
