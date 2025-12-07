@@ -48,4 +48,10 @@ public class CourseController {
     public ResponseEntity<?> getNameTeacherBtCourseId(@PathVariable Integer courseId){
         return ResponseEntity.status(200).body(courseService.getNameTeacherByCourse(courseId));
     }
+
+    @PutMapping("/assignStudentToCourse/{courseId}/{studentId}")
+    public ResponseEntity<?> assignStudentToCourse(@PathVariable Integer courseId , @PathVariable Integer studentId){
+        courseService.assignStudentToCourse(courseId, studentId);
+        return ResponseEntity.status(200).body(new APIResponse("assign Student to course successfully"));
+    }
 }

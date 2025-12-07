@@ -3,29 +3,33 @@ package org.example.onetoone.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Set;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
-public class Course {
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotEmpty(message = "name must be not empty")
-    @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JsonIgnore
-    private Teacher teacher;
+    @NotEmpty(message = "major must be not empty")
+    private String major;
 
-    @ManyToMany(mappedBy = "courses")
-    private Set<Student> students;
+    @NotNull(message = "age must be not null")
+    private Integer age;
+
+    @ManyToMany
+    @JsonIgnore
+    private Set<Course> courses;
 }

@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.onetoone.API.APIException;
 import org.example.onetoone.DTO.DetailsTeacherDTO;
 import org.example.onetoone.Model.Course;
+import org.example.onetoone.Model.Student;
 import org.example.onetoone.Model.Teacher;
 import org.example.onetoone.Repository.CourseRepository;
+import org.example.onetoone.Repository.StudentRepository;
 import org.example.onetoone.Repository.TeacherRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final TeacherRepository teacherRepository;
+    private final StudentRepository studentRepository;
 
     public List<Course> getAllCourse(){
         return courseRepository.findAll();
@@ -69,5 +72,20 @@ public class CourseService {
             throw new APIException("this course has no teacher");
         }
         return courseRepository.getDetailsTeacher(courseId);
+    }
+
+    public void assignStudentToCourse(Integer courseId , Integer studentId ){
+        Course course = courseRepository.findCourseById(courseId);
+        Student student = studentRepository.findStudentById(studentId);
+        if (course == null){
+            throw new APIException("Course not found");
+        }
+        if (student == null){
+            throw new APIException("Student not found");
+        }
+        student.getCourses().add(course);
+        course.getStudents().add(student);
+        studentRepository.save(student);
+        courseRepository.save(course);
     }
 }
