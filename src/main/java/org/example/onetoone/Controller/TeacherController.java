@@ -43,4 +43,9 @@ public class TeacherController {
     public ResponseEntity<?> getTeacherWithDetails(@PathVariable Integer id){
         return ResponseEntity.status(200).body(teacherService.getTeacherDetailsById(id));
     }
+
+    @GetMapping("/getStudentByCourseId/{courseId}")
+    public ResponseEntity<?> getStudentByCourseId(@PathVariable Integer courseId){
+        return ResponseEntity.status(200).body(teacherService.getStudentByCourseId(courseId));
+    }
 }

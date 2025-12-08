@@ -2,8 +2,12 @@ package org.example.onetoone.Service;
 import lombok.RequiredArgsConstructor;
 import org.example.onetoone.API.APIException;
 import org.example.onetoone.Model.Address;
+import org.example.onetoone.Model.Course;
+import org.example.onetoone.Model.Student;
 import org.example.onetoone.Model.Teacher;
 import org.example.onetoone.Repository.AddressRepository;
+import org.example.onetoone.Repository.CourseRepository;
+import org.example.onetoone.Repository.StudentRepository;
 import org.example.onetoone.Repository.TeacherRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,6 +18,8 @@ public class TeacherService {
 
     private final TeacherRepository teacherRepository;
     private final AddressRepository addressRepository;
+    private final CourseRepository courseRepository;
+    private final StudentRepository studentRepository;
 
     public List<Teacher> getTeacher(){
         return teacherRepository.findAll();
@@ -57,5 +63,12 @@ public class TeacherService {
         return teacher;
     }
 
+    public List<Student> getStudentByCourseId(Integer courseId){
+        Course course = courseRepository.findCourseById(courseId);
+        if (course == null){
+            throw new APIException("Course Not found");
+        }
+        return studentRepository.getStudentByCourseId(courseId);
+    }
 
 }

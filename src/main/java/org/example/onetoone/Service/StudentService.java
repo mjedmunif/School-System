@@ -43,4 +43,20 @@ public class StudentService {
         }
         studentRepository.delete(student);
     }
+
+    public void changeMajorStudent(Integer studentId , String major){
+        Student student = studentRepository.findStudentById(studentId);
+        if (student == null){
+            throw new APIException("Student not found");
+        }
+        if (major.equalsIgnoreCase(student.getMajor())){
+            throw new APIException("Enter a major other than your current major");
+        }
+        student.setMajor(major);
+        if (student.getCourses() != null){
+            student.getCourses().clear();
+        }
+
+        studentRepository.save(student);
+    }
 }

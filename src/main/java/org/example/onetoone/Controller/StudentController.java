@@ -38,4 +38,10 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.status(200).body(new APIResponse("deleted successfully"));
     }
+
+    @GetMapping("/changeMajor/{studentId}/{newMajor}")
+    public ResponseEntity<?> changeMajor(@PathVariable Integer studentId , @PathVariable String newMajor){
+        studentService.changeMajorStudent(studentId, newMajor);
+        return ResponseEntity.status(200).body(new APIResponse("change major successfully"));
+    }
 }
